@@ -6,6 +6,18 @@ AI-Powered Disaster Intelligence & Emergency Response System
 
 Project Sentinel is a multi-agent AI system that helps analyze disasters, assess risks, plan evacuations, allocate resources, and generate emergency alerts.
 
+## 🌟 Features
+
+- Multi-Agent Disaster Intelligence System
+- AI-Based Disaster Report Analysis
+- Flood Risk Prediction using Machine Learning
+- Evacuation Planning Agent
+- Emergency Communication Agent
+- Resource Allocation Agent
+- Interactive Streamlit Dashboard
+- Downloadable Disaster Reports
+- Location Mapping with PyDeck
+
 Built as a Capstone Project for the Kaggle + Google 5-Day AI Agents Intensive Course.
 
 ## 📸 Dashboard Screenshots
@@ -39,8 +51,8 @@ Built as a Capstone Project for the Kaggle + Google 5-Day AI Agents Intensive Co
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Tanmaicoder/project-sentinel.git
-cd project-sentinel
+git clone https://github.com/Tanmaicoder/Project-Sentinel.git
+cd Project-Sentinel
 ```
 
 ### 2. Create Virtual Environment
