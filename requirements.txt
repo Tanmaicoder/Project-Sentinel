@@ -1,0 +1,9 @@
+streamlit
+pandas
+scikit-learn
+joblib
+geopy
+pydeck
+python-dotenv
+google-genai
+numpy
