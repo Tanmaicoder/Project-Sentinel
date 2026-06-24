@@ -1,115 +1,88 @@
 # 🚨 Project Sentinel
 
-## AI-Powered Disaster Intelligence & Emergency Response System
+AI-Powered Disaster Intelligence & Emergency Response System
 
 Project Sentinel is a multi-agent AI system that helps analyze disasters, assess risks, plan evacuations, allocate resources, and generate emergency alerts.
 
 Built as a Capstone Project for the Kaggle + Google 5-Day AI Agents Intensive Course.
 
----
+## 📸 Dashboard Screenshots
 
-## 🌟 Features
+### Main Dashboard
 
-### 🌧 Flood Risk Prediction
-- Machine Learning based flood prediction
-- Uses rainfall, river level, and population density
-- Provides flood probability score
+![Dashboard](screenshots/DashBoard.jpg)
 
-### 🧠 Disaster Intelligence
-- Analyzes disaster reports
-- Detects major threats
-- Generates risk assessment
+### Flood Prediction
 
-### 🚑 Evacuation Planning
-- Calculates evacuation priority
-- Estimates people to evacuate
-- Suggests safe locations
+![Flood Prediction](screenshots/FloodPrediction.jpg)
 
-### 📢 Emergency Communication
-- Generates public alerts
-- Creates emergency SMS messages
-- Produces government briefings
+### Intelligence Module
 
-### 📦 Resource Allocation
-- Food kit estimation
-- Water supply planning
-- Shelter requirement calculation
-- Medical resource allocation
+![Intelligence](screenshots/Intelligence.jpg)
 
-### 🌍 Interactive Dashboard
-- Location mapping
-- Disaster visualization
-- Analytics dashboard
-- Downloadable disaster reports
+### Evacuation Planning
 
----
+![Evacuation](screenshots/Evaculation.jpg)
 
-## 🤖 AI Agents
+### Emergency Alerts
 
-### Coordinator Agent
-Coordinates all disaster response activities.
+![Alerts](screenshots/Alerts.jpg)
 
-### Risk Assessment Agent
-Evaluates disaster severity and risk score.
+### Disaster Reports
 
-### Medical Agent
-Determines required medical resources.
+![Reports](screenshots/Reports.jpg)
 
-### Resource Agent
-Calculates food, water, and shelter needs.
+## 🚀 How to Run
 
-### Evacuation Agent
-Generates evacuation plans and safe zones.
+### 1. Clone Repository
 
-### Communication Agent
-Creates alerts and emergency notifications.
+```bash
+git clone https://github.com/Tanmaicoder/project-sentinel.git
+cd project-sentinel
+```
 
----
+### 2. Create Virtual Environment
 
-## 🛠 Technology Stack
+```bash
+python -m venv venv
+```
 
-- Python
-- Streamlit
-- Google Gemini API
-- Scikit-Learn
-- Pandas
-- PyDeck
-- Geopy
-- Joblib
-- NumPy
+### 3. Activate Virtual Environment
 
----
+Windows:
 
-## 📊 Workflow
+```bash
+venv\Scripts\activate
+```
 
-1. User enters disaster information.
-2. Coordinator Agent analyzes the report.
-3. Risk Assessment Agent determines severity.
-4. Resource Agent estimates requirements.
-5. Evacuation Agent creates evacuation plans.
-6. Communication Agent generates alerts.
-7. Dashboard displays recommendations and reports.
+### 4. Install Dependencies
 
----
+```bash
+pip install -r requirements.txt
+```
 
-## 🚀 Future Enhancements
+### 5. Create .env File
 
-- Real-time weather integration
-- Satellite imagery analysis
-- Live emergency feeds
-- Multi-disaster support
-- Agent-to-agent reasoning visualization
+```env
+GEMINI_API_KEY=YOUR_API_KEY
+```
 
----
+### 6. Train Flood Prediction Model
 
-## 🎯 Project Objective
+```bash
+python ml/train_model.py
+```
 
-To demonstrate how AI agents can collaborate to improve disaster intelligence, emergency response planning, and public safety through an interactive decision-support platform.
+### 7. Run Application
 
----
+```bash
+streamlit run dashboard.py
+```
 
-## 👨‍💻 Author
+Application will open at:
 
-Tanmai N
+```text
+http://localhost:8501
+```
 
-Capstone Project Submission for Kaggle + Google AI Agents Intensive Course.
+

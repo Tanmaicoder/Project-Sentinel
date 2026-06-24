@@ -1,9 +1,10 @@
 streamlit
+google-genai
+python-dotenv
 pandas
+numpy
 scikit-learn
 joblib
 geopy
 pydeck
-python-dotenv
-google-genai
-numpy
+reportlab
