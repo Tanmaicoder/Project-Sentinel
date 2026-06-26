@@ -3,6 +3,7 @@ import json
 import pandas as pd
 import pydeck as pdk
 
+from datetime import datetime
 from geopy.geocoders import Nominatim
 from ml.predict import predict_flood_risk
 from agents.coordinator_agent import CoordinatorAgent
@@ -18,21 +19,29 @@ st.set_page_config(
 )
 
 # =====================================================
+# LOCATION
+# =====================================================
+
+location_name = st.text_input(
+    "📍 Disaster Location",
+    value="Enter name of city, town, or village",
+    placeholder="Enter location (city, town, village)"
+)
+
+# =====================================================
 # HEADER
 # =====================================================
 
 st.title("🚨 Project Sentinel")
 st.caption("AI Powered Disaster Intelligence & Emergency Response System")
 
-# =====================================================
-# LOCATION
-# =====================================================
+col1, col2 = st.columns([2, 1])
 
-location_name = st.text_input(
-    "📍 Disaster Location",
-    value="Hospet"
-)
+with col1:
+    st.caption(f"📍 Location: {location_name}")
 
+with col2:
+    st.caption(f"🕒 {datetime.now().strftime('%d-%m-%Y %I:%M:%S %p')}")
 # =====================================================
 # GET COORDINATES
 # =====================================================
@@ -248,7 +257,7 @@ if st.button("🚀 Analyze Disaster"):
 
     coordinator = CoordinatorAgent()
 
-    result = coordinator.coordinate(report)
+    result = coordinator.coordinate(report, location_name)
 
     severity = result["risk_assessment"]["severity"]
     risk_score = result["risk_assessment"]["risk_score"]
@@ -348,6 +357,7 @@ if st.button("🚀 Analyze Disaster"):
             f"Shelters: {result['resource_allocation']['shelters']}"
         )
 
+
     # ================================================
     # TAB 2
     # ================================================
@@ -368,14 +378,61 @@ if st.button("🚀 Analyze Disaster"):
                 f"People To Evacuate: {evacuation['people_to_evacuate']}"
             )
 
-            st.subheader("🏠 Safe Locations")
+            st.subheader("🏠 Nearby Safe Locations")
 
-            for loc in evacuation["safe_locations"]:
-                st.success(loc)
+            safe_locations = result.get("safe_location_map", [])
+
+            if safe_locations:
+
+                map_df = pd.DataFrame({
+                    "lat": [p["latitude"] for p in safe_locations],
+                    "lon": [p["longitude"] for p in safe_locations],
+                    "name": [p["name"] for p in safe_locations]
+                })
+
+                layer = pdk.Layer(
+                    "ScatterplotLayer",
+                    data=map_df,
+                    get_position="[lon, lat]",
+                    get_fill_color="[0,255,0,180]",
+                    get_radius=800,
+                    pickable=True,
+                )
+
+                view_state = pdk.ViewState(
+                    latitude=map_df["lat"].mean(),
+                    longitude=map_df["lon"].mean(),
+                    zoom=11,
+                )
+
+                st.pydeck_chart(
+                    pdk.Deck(
+                        initial_view_state=view_state,
+                        layers=[layer],
+                        tooltip={"text": "{name}"},
+                    )
+                )
+
+                st.markdown("### 📍 Safe Shelter Details")
+
+                for place in safe_locations:
+
+                    st.success(place["name"])
+                    st.write(f"Latitude : {place['latitude']}")
+                    st.write(f"Longitude : {place['longitude']}")
+
+                    st.link_button(
+                        "📍 Open in Google Maps",
+                        place["maps_url"]
+                    )
+
+                    st.divider()
+
+            else:
+                st.warning("No safe locations found.")
 
         else:
-            st.warning("No evacuation plan available")
-
+            st.warning("No evacuation plan available.")
     # ================================================
     # TAB 3
     # ================================================
@@ -386,18 +443,88 @@ if st.button("🚀 Analyze Disaster"):
 
         if alerts:
 
-            st.subheader("📢 Public Alert")
-            st.error(alerts["public_alert"])
+            st.subheader("🚨 Emergency Alert Center")
 
-            st.subheader("📱 Emergency SMS")
-            st.warning(alerts["emergency_sms"])
+            st.error("🔴 Public Safety Alert")
+            st.write(alerts["public_alert"])
 
-            st.subheader("🏛 Government Briefing")
-            st.info(alerts["government_briefing"])
+            st.markdown("---")
+
+            st.warning("📱 Emergency SMS")
+            st.code(alerts["emergency_sms"])
+
+            st.markdown("---")
+
+            st.info("🏛 Government Situation Report")
+            st.write(alerts["government_briefing"])
+
+            st.markdown("---")
+
+            st.subheader("✅ Immediate Safety Instructions")
+
+            instructions = [
+                "Move immediately to the nearest safe shelter.",
+                "Avoid flooded roads and bridges.",
+                "Switch off electricity and gas before leaving home.",
+                "Carry drinking water, medicines, and important documents.",
+                "Keep your mobile phone fully charged.",
+                "Follow instructions from local authorities only.",
+                "Do not spread unverified information on social media.",
+                "Call Emergency 1070 or 108 only if immediate assistance is required."
+            ]
+
+            for step in instructions:
+                st.success(step)
+
+            st.markdown("---")
+
+            st.subheader("📞 Emergency Contacts")
+
+            c1, c2, c3, c4 = st.columns(4)
+
+            with c1:
+                st.metric("Police", "100")
+
+            with c2:
+                st.metric("Fire", "101")
+
+            with c3:
+                st.metric("Ambulance", "108")
+
+            with c4:
+                st.metric("Disaster", "1070")
+
+            st.markdown("---")
+
+            st.subheader("📢 Share Emergency Alert")
+
+            alert_text = f"""
+🚨 EMERGENCY ALERT
+
+Location : {location_name}
+
+Severity : {severity}
+
+Risk Score : {risk_score}/100
+
+Please evacuate immediately to the nearest safe shelter.
+
+Emergency Numbers:
+Police - 100
+Fire - 101
+Ambulance - 108
+Disaster Helpline - 1070
+"""
+
+            st.download_button(
+                "📥 Download Emergency Alert",
+                alert_text,
+                "Emergency_Alert.txt",
+                "text/plain"
+            )
 
         else:
-            st.warning("No alerts available")
-
+            st.warning("No alerts available.")
     # ================================================
     # TAB 4
     # ================================================

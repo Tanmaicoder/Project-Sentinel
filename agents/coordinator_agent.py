@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 import json
 
+from agents.location_agent import LocationAgent
 from agents.evacuation_agent import EvacuationAgent
 from agents.communication_agent import CommunicationAgent
 
@@ -15,7 +16,7 @@ client = genai.Client(
 
 class CoordinatorAgent:
 
-    def coordinate(self, report):
+    def coordinate(self, report,location_name):
 
         prompt = f"""
 Return ONLY valid JSON.
@@ -101,5 +102,10 @@ Disaster Report:
         # Add agent outputs
         data["evacuation_plan"] = evacuation_plan
         data["communication"] = communication
+
+        # Get nearby safe locations
+        location_agent = LocationAgent()
+
+        data["safe_location_map"] = location_agent.get_safe_locations(location_name)
 
         return data

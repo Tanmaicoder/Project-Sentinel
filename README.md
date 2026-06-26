@@ -1,5 +1,5 @@
 # 🚨 Project Sentinel
-
+![Project Sentinel](screenshots/Project_Sentinel.png)
 AI-Powered Disaster Intelligence & Emergency Response System
 
 Project Sentinel is a multi-agent AI system that helps analyze disasters, assess risks, plan evacuations, allocate resources, and generate emergency alerts.
