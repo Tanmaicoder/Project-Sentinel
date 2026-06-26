@@ -3,7 +3,7 @@
 
 
 
-![Project Sentinel](screenshots/Project_Sentinel.png)
+
 
 
 AI-Powered Disaster Intelligence & Emergency Response System
@@ -37,14 +37,17 @@ Built as a Capstone Project for the Kaggle + Google 5-Day AI Agents Intensive Co
 ### Intelligence Module
 
 ![Intelligence](screenshots/Intelligence.jpg)
+![Intelligence](screenshots/Intelligence1.jpg)
 
 ### Evacuation Planning
 
 ![Evacuation](screenshots/Evaculation.jpg)
+![Evacuation](screenshots/Evaculation1.jpg)
 
 ### Emergency Alerts
 
 ![Alerts](screenshots/Alerts.jpg)
+![Alerts](screenshots/Alerts1.jpg)
 
 ### Disaster Reports
 
