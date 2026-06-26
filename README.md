@@ -58,7 +58,7 @@ Built as a Capstone Project for the Kaggle + Google 5-Day AI Agents Intensive Co
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Tanmaicoder/Project-Sentinel.git
+git clone https://github.com/Tanmaisuryavamshi/Project-Sentinel.git
 cd Project-Sentinel
 ```
 
